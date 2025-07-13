@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Resistor Calculation Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .formula-box {
+            background: #e3f2fd;
+            border: 3px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .formula {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1976d2;
+            margin: 10px 0;
+        }
+        .example-box {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .warning-box {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .success-box {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .calc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .calc-table th,
+        .calc-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .calc-table th {
+            background: #4CAF50;
+            color: white;
+        }
+        .calc-table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .calculator {
+            background: #fff;
+            border: 2px solid #007bff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .input-group {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .input-group label {
+            width: 200px;
+            font-weight: bold;
+        }
+        .input-group input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100px;
+        }
+        .calculate-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .result {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .color-codes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .resistor-visual {
+            background: linear-gradient(90deg, #8B4513, #FFD700, #FF0000, #8B4513, #CD853F);
+            height: 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 LED Resistor Calculation Guide</h1>
+        
+        <div class="formula-box">
+            <h2>⚡ Ohm's Law</h2>
+            <div class="formula">R = (V_supply - V_led) ÷ I_led</div>
+            <p><strong>Where:</strong></p>
+            <ul style="text-align: left; display: inline-block;">
+                <li><strong>R</strong> = Resistance needed (Ohms)</li>
+                <li><strong>V_supply</strong> = Voltage from GPIO pin (3.3V)</li>
+                <li><strong>V_led</strong> = LED forward voltage drop</li>
+                <li><strong>I_led</strong> = LED current (typically 20mA)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📋 Step 1: Know Your Component Values</h3>
+            <table class="calc-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Value</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Raspberry Pi GPIO</td>
+                        <td>3.3V</td>
+                        <td>This is your supply voltage</td>
+                    </tr>
+                    <tr>
+                        <td>Red LED Forward Voltage</td>
+                        <td>~2.0V</td>
+                        <td>Voltage drop across the LED</td>
+                    </tr>
+                    <tr>
+                        <td>Green LED Forward Voltage</td>
+                        <td>~2.1V</td>
+                        <td>Slightly higher than red</td>
+                    </tr>
+                    <tr>
+                        <td>Blue LED Forward Voltage</td>
+                        <td>~3.2V</td>
+                        <td>Highest forward voltage</td>
+                    </tr>
+                    <tr>
+                        <td>LED Current (typical)</td>
+                        <td>20mA (0.02A)</td>
+                        <td>Safe operating current</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="example-box">
+            <h3>🧮 Example Calculation for Red LED</h3>
+            <div class="step">
+                <p><strong>Given:</strong></p>
+                <ul>
+                    <li>GPIO voltage: 3.3V</li>
+                    <li>Red LED forward voltage: 2.0V</li>
+                    <li>Desired current: 20mA (0.02A)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <p><strong>Step 1:</strong> Calculate voltage across resistor</p>
+                <p>V_resistor = V_supply - V_led = 3.3V - 2.0V = <strong>1.3V</strong></p>
+            </div>
+            
+            <div class="step">
+                <p><strong>Step 2:</strong> Apply Ohm's Law</p>
+                <p>R = V_resistor ÷ I_led = 1.3V ÷ 0.02A = <strong>65 Ohms</strong></p>
+            </div>
+            
+            <div class="step">
+                <p><strong>Step 3:</strong> Choose nearest standard value</p>
+                <p>Nearest standard resistor: <strong>68Ω or 100Ω</strong></p>
+                <p>Common choice: <strong>220Ω</strong> (gives dimmer but safer operation)</p>
+            </div>
+        </div>
+
+        <div class="calculator">
+            <h3>🔢 Interactive Calculator</h3>
+            <div class="input-group">
+                <label>GPIO Voltage (V):</label>
+                <input type="number" id="supply-voltage" value="3.3" step="0.1">
+            </div>
+            <div class="input-group">
+                <label>LED Forward Voltage (V):</label>
+                <input type="number" id="led-voltage" value="2.0" step="0.1">
+            </div>
+            <div class="input-group">
+                <label>LED Current (mA):</label>
+                <input type="number" id="led-current" value="20" step="1">
+            </div>
+            <button class="calculate-btn" onclick="calculateResistor()">Calculate Resistor</button>
+            <div id="result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="warning-box">
+            <h3>⚠️ Why We Use 220Ω Instead of Exact Values</h3>
+            <ul>
+                <li><strong>Safety margin:</strong> Protects LED from overcurrent</li>
+                <li><strong>Standard value:</strong> 220Ω is readily available</li>
+                <li><strong>GPIO protection:</strong> Limits current draw from Pi</li>
+                <li><strong>Brightness:</strong> Still plenty bright for most projects</li>
+                <li><strong>Heat:</strong> Lower current = less heat = longer LED life</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🎨 Different LED Colors Need Different Resistors</h3>
+            <table class="calc-table">
+                <thead>
+                    <tr>
+                        <th>LED Color</th>
+                        <th>Forward Voltage</th>
+                        <th>Calculated Resistor</th>
+                        <th>Recommended Resistor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Red</td>
+                        <td>2.0V</td>
+                        <td>65Ω</td>
+                        <td>100Ω - 220Ω</td>
+                    </tr>
+                    <tr>
+                        <td>Yellow</td>
+                        <td>2.1V</td>
+                        <td>60Ω</td>
+                        <td>100Ω - 220Ω</td>
+                    </tr>
+                    <tr>
+                        <td>Green</td>
+                        <td>2.1V</td>
+                        <td>60Ω</td>
+                        <td>100Ω - 220Ω</td>
+                    </tr>
+                    <tr>
+                        <td>Blue</td>
+                        <td>3.2V</td>
+                        <td>5Ω</td>
+                        <td>47Ω - 100Ω</td>
+                    </tr>
+                    <tr>
+                        <td>White</td>
+                        <td>3.2V</td>
+                        <td>5Ω</td>
+                        <td>47Ω - 100Ω</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="success-box">
+            <h3>✅ Quick Rule of Thumb</h3>
+            <ul>
+                <li><strong>Red/Yellow/Green LEDs:</strong> Use 220Ω resistors</li>
+                <li><strong>Blue/White LEDs:</strong> Use 100Ω resistors (or 220Ω for dimmer)</li>
+                <li><strong>When in doubt:</strong> Use 220Ω - it's safe for all LED colors</li>
+                <li><strong>For brighter LEDs:</strong> Use smaller resistor values (but not below calculated minimum)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🌈 Resistor Color Code Reference</h3>
+            <div class="color-codes">
+                <div>
+                    <strong>100Ω (Brown-Black-Brown)</strong>
+                    <div class="resistor-visual">100Ω</div>
+                </div>
+                <div>
+                    <strong>220Ω (Red-Red-Brown)</strong>
+                    <div class="resistor-visual">220Ω</div>
+                </div>
+                <div>
+                    <strong>330Ω (Orange-Orange-Brown)</strong>
+                    <div class="resistor-visual">330Ω</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h3>🚨 What Happens Without Resistors?</h3>
+            <p><strong>DON'T connect LEDs directly to GPIO pins!</strong></p>
+            <ul>
+                <li>LEDs will draw too much current (potentially 100mA+)</li>
+                <li>Can damage the Raspberry Pi GPIO pins</li>
+                <li>LEDs may burn out immediately</li>
+                <li>GPIO pins are only rated for ~16mA safely</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function calculateResistor() {
+            const supplyVoltage = parseFloat(document.getElementById('supply-voltage').value);
+            const ledVoltage = parseFloat(document.getElementById('led-voltage').value);
+            const ledCurrent = parseFloat(document.getElementById('led-current').value) / 1000; // Convert mA to A
+            
+            const voltageAcrossResistor = supplyVoltage - ledVoltage;
+            const resistance = voltageAcrossResistor / ledCurrent;
+            
+            let recommendation = '';
+            if (resistance < 50) {
+                recommendation = 'Use 47Ω or 100Ω resistor';
+            } else if (resistance < 100) {
+                recommendation = 'Use 100Ω resistor';
+            } else if (resistance < 200) {
+                recommendation = 'Use 220Ω resistor';
+            } else {
+                recommendation = 'Use 330Ω or 470Ω resistor';
+            }
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <strong>Results:</strong><br>
+                Voltage across resistor: ${voltageAcrossResistor.toFixed(2)}V<br>
+                Calculated resistance: ${resistance.toFixed(1)}Ω<br>
+                Recommendation: ${recommendation}
+            `;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

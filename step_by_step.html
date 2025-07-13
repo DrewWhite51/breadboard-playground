@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breadboard Layout Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .breadboard {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            border: 3px solid #333;
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .breadboard-grid {
+            display: grid;
+            grid-template-columns: 40px repeat(30, 1fr) 40px;
+            grid-template-rows: repeat(35, 1fr);
+            gap: 2px;
+            height: 500px;
+        }
+        .power-rail {
+            background: #ff4444;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+        .ground-rail {
+            background: #333;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+        .hole {
+            background: #ddd;
+            border-radius: 50%;
+            border: 1px solid #999;
+        }
+        .center-gap {
+            background: #888;
+            grid-column: 1 / -1;
+        }
+        .resistor {
+            background: #FFD700;
+            border: 2px solid #FF8C00;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: bold;
+        }
+        .led {
+            background: radial-gradient(circle, #ff4444, #cc0000);
+            border: 2px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: white;
+            font-weight: bold;
+        }
+        .wire {
+            background: #4CAF50;
+            border: 1px solid #333;
+            border-radius: 2px;
+        }
+        .gpio-wire {
+            background: #2196F3;
+            border: 1px solid #333;
+            border-radius: 2px;
+        }
+        .labels {
+            display: grid;
+            grid-template-columns: 40px repeat(30, 1fr) 40px;
+            gap: 2px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .row-labels {
+            position: absolute;
+            left: 10px;
+            top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .connections-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        .connections-table th,
+        .connections-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .connections-table th {
+            background: #4CAF50;
+            color: white;
+        }
+        .step-box {
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .step-box h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .visual-breadboard {
+            background: #f0f0f0;
+            border: 3px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        .breadboard-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .component-visual {
+            width: 30px;
+            height: 15px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .resistor-visual {
+            background: linear-gradient(90deg, #FFD700, #FF8C00, #FFD700);
+            border: 1px solid #333;
+        }
+        .led-visual {
+            background: radial-gradient(circle, #ff4444, #cc0000);
+            border: 1px solid #333;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+        }
+        .wire-visual {
+            background: #4CAF50;
+            height: 3px;
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Breadboard Layout Guide for LED Matrix</h1>
+        
+        <div class="step-box">
+            <h3>📋 Step-by-Step Placement</h3>
+            <p><strong>Important:</strong> Your breadboard has rows numbered 1-30 and columns labeled a-j. The middle has a gap that separates the two halves.</p>
+        </div>
+
+        <div class="step-box">
+            <h3>🔴 Step 1: Place the LEDs</h3>
+            <p>Place your 9 LEDs in these positions (long leg on the left, short leg on the right):</p>
+            <table class="connections-table">
+                <thead>
+                    <tr>
+                        <th>LED</th>
+                        <th>Position</th>
+                        <th>Long Leg (Anode)</th>
+                        <th>Short Leg (Cathode)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>LED 1</td><td>Top-Left</td><td>Row 5, Column e</td><td>Row 5, Column f</td></tr>
+                    <tr><td>LED 2</td><td>Top-Center</td><td>Row 7, Column e</td><td>Row 7, Column f</td></tr>
+                    <tr><td>LED 3</td><td>Top-Right</td><td>Row 9, Column e</td><td>Row 9, Column f</td></tr>
+                    <tr><td>LED 4</td><td>Mid-Left</td><td>Row 11, Column e</td><td>Row 11, Column f</td></tr>
+                    <tr><td>LED 5</td><td>Mid-Center</td><td>Row 13, Column e</td><td>Row 13, Column f</td></tr>
+                    <tr><td>LED 6</td><td>Mid-Right</td><td>Row 15, Column e</td><td>Row 15, Column f</td></tr>
+                    <tr><td>LED 7</td><td>Bot-Left</td><td>Row 17, Column e</td><td>Row 17, Column f</td></tr>
+                    <tr><td>LED 8</td><td>Bot-Center</td><td>Row 19, Column e</td><td>Row 19, Column f</td></tr>
+                    <tr><td>LED 9</td><td>Bot-Right</td><td>Row 21, Column e</td><td>Row 21, Column f</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="step-box">
+            <h3>⚡ Step 2: Place the Resistors (EXACT PLACEMENT)</h3>
+            <p>Place 220Ω resistors to connect GPIO pins to LED anodes. Each resistor has two legs - here's exactly where each leg goes:</p>
+            <table class="connections-table">
+                <thead>
+                    <tr>
+                        <th>Resistor</th>
+                        <th>Left Leg Position</th>
+                        <th>Right Leg Position</th>
+                        <th>What it connects</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>R1</td><td>Row 5, Column <strong>b</strong></td><td>Row 5, Column <strong>d</strong></td><td>GPIO 18 → LED 1</td></tr>
+                    <tr><td>R2</td><td>Row 7, Column <strong>b</strong></td><td>Row 7, Column <strong>d</strong></td><td>GPIO 19 → LED 2</td></tr>
+                    <tr><td>R3</td><td>Row 9, Column <strong>b</strong></td><td>Row 9, Column <strong>d</strong></td><td>GPIO 20 → LED 3</td></tr>
+                    <tr><td>R4</td><td>Row 11, Column <strong>b</strong></td><td>Row 11, Column <strong>d</strong></td><td>GPIO 21 → LED 4</td></tr>
+                    <tr><td>R5</td><td>Row 13, Column <strong>b</strong></td><td>Row 13, Column <strong>d</strong></td><td>GPIO 22 → LED 5</td></tr>
+                    <tr><td>R6</td><td>Row 15, Column <strong>b</strong></td><td>Row 15, Column <strong>d</strong></td><td>GPIO 23 → LED 6</td></tr>
+                    <tr><td>R7</td><td>Row 17, Column <strong>b</strong></td><td>Row 17, Column <strong>d</strong></td><td>GPIO 24 → LED 7</td></tr>
+                    <tr><td>R8</td><td>Row 19, Column <strong>b</strong></td><td>Row 19, Column <strong>d</strong></td><td>GPIO 25 → LED 8</td></tr>
+                    <tr><td>R9</td><td>Row 21, Column <strong>b</strong></td><td>Row 21, Column <strong>d</strong></td><td>GPIO 26 → LED 9</td></tr>
+                </tbody>
+            </table>
+            
+            <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                <strong>🔧 How to place each resistor:</strong>
+                <ol>
+                    <li>Take a 220Ω resistor (usually has red-red-brown-gold color bands)</li>
+                    <li>Bend the legs slightly if needed</li>
+                    <li>Insert the LEFT leg into column <strong>b</strong> on the specified row</li>
+                    <li>Insert the RIGHT leg into column <strong>d</strong> on the SAME row</li>
+                    <li>The resistor should span across the gap, connecting columns b and d</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="step-box">
+            <h3>🔗 Step 3: Connect GPIO Wires</h3>
+            <p>Use jumper wires from Raspberry Pi GPIO pins to the resistors:</p>
+            <table class="connections-table">
+                <thead>
+                    <tr>
+                        <th>GPIO Pin</th>
+                        <th>Connect to Breadboard</th>
+                        <th>Controls LED</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>GPIO 18</td><td>Row 5, Column a</td><td>LED 1</td></tr>
+                    <tr><td>GPIO 19</td><td>Row 7, Column a</td><td>LED 2</td></tr>
+                    <tr><td>GPIO 20</td><td>Row 9, Column a</td><td>LED 3</td></tr>
+                    <tr><td>GPIO 21</td><td>Row 11, Column a</td><td>LED 4</td></tr>
+                    <tr><td>GPIO 22</td><td>Row 13, Column a</td><td>LED 5</td></tr>
+                    <tr><td>GPIO 23</td><td>Row 15, Column a</td><td>LED 6</td></tr>
+                    <tr><td>GPIO 24</td><td>Row 17, Column a</td><td>LED 7</td></tr>
+                    <tr><td>GPIO 25</td><td>Row 19, Column a</td><td>LED 8</td></tr>
+                    <tr><td>GPIO 26</td><td>Row 21, Column a</td><td>LED 9</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="step-box">
+            <h3>🔌 Step 4: Ground Connections</h3>
+            <p>Connect all LED cathodes (short legs) to ground:</p>
+            <ul>
+                <li>Use jumper wires to connect each LED's cathode (column f) to the ground rail (blue/black line on breadboard)</li>
+                <li>Connect the ground rail to a GND pin on your Raspberry Pi</li>
+            </ul>
+        </div>
+
+        <div class="visual-breadboard">
+            <h3>🎯 Visual Layout Example</h3>
+            <div class="breadboard-section">
+                <span>Row 5:</span>
+                <span>[GPIO Wire in Col a]</span>
+                <span class="component-visual resistor-visual">b→d</span>
+                <span class="component-visual led-visual">e→f</span>
+                <span>[to Ground from f]</span>
+            </div>
+            <div class="breadboard-section">
+                <span>Row 7:</span>
+                <span>[GPIO Wire in Col a]</span>
+                <span class="component-visual resistor-visual">b→d</span>
+                <span class="component-visual led-visual">e→f</span>
+                <span>[to Ground from f]</span>
+            </div>
+            <div class="breadboard-section">
+                <span>Row 9:</span>
+                <span>[GPIO Wire in Col a]</span>
+                <span class="component-visual resistor-visual">b→d</span>
+                <span class="component-visual led-visual">e→f</span>
+                <span>[to Ground from f]</span>
+            </div>
+            <p style="text-align: center; margin-top: 20px;"><em>Continue this pattern for all 9 LEDs</em></p>
+        </div>
+
+        <div class="step-box">
+            <h3>💡 Pro Tips</h3>
+            <ul>
+                <li><strong>LED Orientation:</strong> The long leg (anode) always goes toward the resistor/GPIO pin</li>
+                <li><strong>Resistor Placement:</strong> Resistors can go in either direction - they're not polarized</li>
+                <li><strong>Wire Management:</strong> Use different colored wires to keep track of connections</li>
+                <li><strong>Testing:</strong> Test each LED individually before connecting all 9</li>
+                <li><strong>Power Rails:</strong> The red and blue lines on the sides are for power and ground distribution</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h3>🧪 Quick Test</h3>
+            <p>Before running the full program, test one LED:</p>
+            <pre><code>import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.OUT)  # Test LED 1
+
+GPIO.output(18, GPIO.HIGH)  # Turn on
+time.sleep(2)
+GPIO.output(18, GPIO.LOW)   # Turn off
+
+GPIO.cleanup()
+</code></pre>
+        </div>
+    </div>
+</body>
+</html>

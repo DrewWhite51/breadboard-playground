@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED Matrix Circuit Diagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .circuit-section {
+            margin-bottom: 40px;
+        }
+        .circuit-diagram {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            border: 2px solid #333;
+            margin: 20px auto;
+            display: block;
+            background: white;
+        }
+        .breadboard-layout {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            border: 2px solid #333;
+            margin: 20px auto;
+            display: block;
+            background: #f0f0f0;
+        }
+        .code-section {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .connections-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .connections-table th,
+        .connections-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .connections-table th {
+            background: #4CAF50;
+            color: white;
+        }
+        .connections-table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .gpio-pin {
+            fill: #4CAF50;
+            stroke: #333;
+            stroke-width: 2;
+        }
+        .resistor {
+            fill: #FFD700;
+            stroke: #333;
+            stroke-width: 2;
+        }
+        .led {
+            fill: #FF4444;
+            stroke: #333;
+            stroke-width: 2;
+        }
+        .wire {
+            stroke: #333;
+            stroke-width: 2;
+            fill: none;
+        }
+        .ground {
+            stroke: #333;
+            stroke-width: 3;
+            fill: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 LED Matrix Circuit Diagram & Python Control</h1>
+        
+        <div class="circuit-section">
+            <h2>Circuit Schematic (3x3 LED Matrix)</h2>
+            <svg class="circuit-diagram" viewBox="0 0 800 500">
+                <!-- Raspberry Pi GPIO representation -->
+                <rect x="50" y="50" width="120" height="200" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+                <text x="110" y="40" text-anchor="middle" font-size="14" font-weight="bold">Raspberry Pi</text>
+                <text x="110" y="65" text-anchor="middle" font-size="12">GPIO Pins</text>
+                
+                <!-- GPIO pins -->
+                <circle cx="170" cy="80" r="5" class="gpio-pin"/>
+                <text x="180" y="85" font-size="10">GPIO 18</text>
+                <circle cx="170" cy="100" r="5" class="gpio-pin"/>
+                <text x="180" y="105" font-size="10">GPIO 19</text>
+                <circle cx="170" cy="120" r="5" class="gpio-pin"/>
+                <text x="180" y="125" font-size="10">GPIO 20</text>
+                <circle cx="170" cy="140" r="5" class="gpio-pin"/>
+                <text x="180" y="145" font-size="10">GPIO 21</text>
+                <circle cx="170" cy="160" r="5" class="gpio-pin"/>
+                <text x="180" y="165" font-size="10">GPIO 22</text>
+                <circle cx="170" cy="180" r="5" class="gpio-pin"/>
+                <text x="180" y="185" font-size="10">GPIO 23</text>
+                <circle cx="170" cy="200" r="5" class="gpio-pin"/>
+                <text x="180" y="205" font-size="10">GPIO 24</text>
+                <circle cx="170" cy="220" r="5" class="gpio-pin"/>
+                <text x="180" y="225" font-size="10">GPIO 25</text>
+                <circle cx="170" cy="240" r="5" class="gpio-pin"/>
+                <text x="180" y="245" font-size="10">GPIO 26</text>
+                
+                <!-- Ground connection -->
+                <circle cx="170" cy="280" r="5" fill="#333"/>
+                <text x="180" y="285" font-size="10">GND</text>
+                
+                <!-- Resistors -->
+                <rect x="300" y="75" width="40" height="10" class="resistor"/>
+                <text x="320" y="70" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="95" width="40" height="10" class="resistor"/>
+                <text x="320" y="90" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="115" width="40" height="10" class="resistor"/>
+                <text x="320" y="110" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="135" width="40" height="10" class="resistor"/>
+                <text x="320" y="130" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="155" width="40" height="10" class="resistor"/>
+                <text x="320" y="150" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="175" width="40" height="10" class="resistor"/>
+                <text x="320" y="170" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="195" width="40" height="10" class="resistor"/>
+                <text x="320" y="190" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="215" width="40" height="10" class="resistor"/>
+                <text x="320" y="210" text-anchor="middle" font-size="10">220Ω</text>
+                <rect x="300" y="235" width="40" height="10" class="resistor"/>
+                <text x="320" y="230" text-anchor="middle" font-size="10">220Ω</text>
+                
+                <!-- LEDs arranged in 3x3 grid -->
+                <!-- Row 1 -->
+                <circle cx="500" cy="80" r="8" class="led"/>
+                <text x="520" y="85" font-size="10">LED1</text>
+                <circle cx="550" cy="80" r="8" class="led"/>
+                <text x="570" y="85" font-size="10">LED2</text>
+                <circle cx="600" cy="80" r="8" class="led"/>
+                <text x="620" y="85" font-size="10">LED3</text>
+                
+                <!-- Row 2 -->
+                <circle cx="500" cy="140" r="8" class="led"/>
+                <text x="520" y="145" font-size="10">LED4</text>
+                <circle cx="550" cy="140" r="8" class="led"/>
+                <text x="570" y="145" font-size="10">LED5</text>
+                <circle cx="600" cy="140" r="8" class="led"/>
+                <text x="620" y="145" font-size="10">LED6</text>
+                
+                <!-- Row 3 -->
+                <circle cx="500" cy="200" r="8" class="led"/>
+                <text x="520" y="205" font-size="10">LED7</text>
+                <circle cx="550" cy="200" r="8" class="led"/>
+                <text x="570" y="205" font-size="10">LED8</text>
+                <circle cx="600" cy="200" r="8" class="led"/>
+                <text x="620" y="205" font-size="10">LED9</text>
+                
+                <!-- Wires from GPIO to resistors -->
+                <line x1="175" y1="80" x2="300" y2="80" class="wire"/>
+                <line x1="175" y1="100" x2="300" y2="100" class="wire"/>
+                <line x1="175" y1="120" x2="300" y2="120" class="wire"/>
+                <line x1="175" y1="140" x2="300" y2="140" class="wire"/>
+                <line x1="175" y1="160" x2="300" y2="160" class="wire"/>
+                <line x1="175" y1="180" x2="300" y2="180" class="wire"/>
+                <line x1="175" y1="200" x2="300" y2="200" class="wire"/>
+                <line x1="175" y1="220" x2="300" y2="220" class="wire"/>
+                <line x1="175" y1="240" x2="300" y2="240" class="wire"/>
+                
+                <!-- Wires from resistors to LEDs -->
+                <line x1="340" y1="80" x2="492" y2="80" class="wire"/>
+                <line x1="340" y1="100" x2="542" y2="80" class="wire"/>
+                <line x1="340" y1="120" x2="592" y2="80" class="wire"/>
+                <line x1="340" y1="140" x2="492" y2="140" class="wire"/>
+                <line x1="340" y1="160" x2="542" y2="140" class="wire"/>
+                <line x1="340" y1="180" x2="592" y2="140" class="wire"/>
+                <line x1="340" y1="200" x2="492" y2="200" class="wire"/>
+                <line x1="340" y1="220" x2="542" y2="200" class="wire"/>
+                <line x1="340" y1="240" x2="592" y2="200" class="wire"/>
+                
+                <!-- Ground connections -->
+                <line x1="508" y1="80" x2="650" y2="80" class="wire"/>
+                <line x1="558" y1="80" x2="650" y2="80" class="wire"/>
+                <line x1="608" y1="80" x2="650" y2="80" class="wire"/>
+                <line x1="508" y1="140" x2="650" y2="140" class="wire"/>
+                <line x1="558" y1="140" x2="650" y2="140" class="wire"/>
+                <line x1="608" y1="140" x2="650" y2="140" class="wire"/>
+                <line x1="508" y1="200" x2="650" y2="200" class="wire"/>
+                <line x1="558" y1="200" x2="650" y2="200" class="wire"/>
+                <line x1="608" y1="200" x2="650" y2="200" class="wire"/>
+                
+                <!-- Common ground line -->
+                <line x1="650" y1="80" x2="650" y2="280" class="wire"/>
+                <line x1="650" y1="140" x2="650" y2="280" class="wire"/>
+                <line x1="650" y1="200" x2="650" y2="280" class="wire"/>
+                <line x1="175" y1="280" x2="650" y2="280" class="ground"/>
+                
+                <!-- Ground symbol -->
+                <line x1="645" y1="285" x2="655" y2="285" stroke="#333" stroke-width="3"/>
+                <line x1="647" y1="290" x2="653" y2="290" stroke="#333" stroke-width="3"/>
+                <line x1="649" y1="295" x2="651" y2="295" stroke="#333" stroke-width="3"/>
+            </svg>
+        </div>
+        
+        <div class="note">
+            <strong>📝 Note:</strong> Each LED needs a 220Ω resistor to limit current and prevent damage. The long leg of the LED (anode) connects to the GPIO pin through the resistor, and the short leg (cathode) connects to ground.
+        </div>
+        
+        <div class="circuit-section">
+            <h2>Breadboard Connection Guide</h2>
+            <table class="connections-table">
+                <thead>
+                    <tr>
+                        <th>LED Position</th>
+                        <th>GPIO Pin</th>
+                        <th>Resistor</th>
+                        <th>LED Anode (+)</th>
+                        <th>LED Cathode (-)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>LED 1 (Top-Left)</td>
+                        <td>GPIO 18</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 18</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 2 (Top-Center)</td>
+                        <td>GPIO 19</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 19</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 3 (Top-Right)</td>
+                        <td>GPIO 20</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 20</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 4 (Mid-Left)</td>
+                        <td>GPIO 21</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 21</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 5 (Mid-Center)</td>
+                        <td>GPIO 22</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 22</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 6 (Mid-Right)</td>
+                        <td>GPIO 23</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 23</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 7 (Bottom-Left)</td>
+                        <td>GPIO 24</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 24</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 8 (Bottom-Center)</td>
+                        <td>GPIO 25</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 25</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                    <tr>
+                        <td>LED 9 (Bottom-Right)</td>
+                        <td>GPIO 26</td>
+                        <td>220Ω</td>
+                        <td>Through resistor to GPIO 26</td>
+                        <td>To Ground rail</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="code-section">
+            <h2>🐍 Python Control Program</h2>
+            <pre><code>#!/usr/bin/env python3
+"""
+LED Matrix Display Controller
+Controls a 3x3 LED matrix to display patterns and images
+"""
+
+import RPi.GPIO as GPIO
+import time
+import threading
+
+class LEDMatrix:
+    def __init__(self):
+        # GPIO pins for the 3x3 matrix
+        self.pins = [
+            [18, 19, 20],  # Top row
+            [21, 22, 23],  # Middle row
+            [24, 25, 26]   # Bottom row
+        ]
+        
+        # Setup GPIO
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        
+        # Initialize all pins as outputs
+        for row in self.pins:
+            for pin in row:
+                GPIO.setup(pin, GPIO.OUT)
+                GPIO.output(pin, GPIO.LOW)
+        
+        self.running = False
+        self.animation_thread = None
+    
+    def set_pixel(self, row, col, state):
+        """Set a single LED on or off"""
+        if 0 <= row < 3 and 0 <= col < 3:
+            GPIO.output(self.pins[row][col], GPIO.HIGH if state else GPIO.LOW)
+    
+    def clear_display(self):
+        """Turn off all LEDs"""
+        for row in range(3):
+            for col in range(3):
+                self.set_pixel(row, col, False)
+    
+    def display_pattern(self, pattern):
+        """Display a 3x3 pattern"""
+        self.clear_display()
+        for row in range(3):
+            for col in range(3):
+                if row < len(pattern) and col < len(pattern[row]):
+                    self.set_pixel(row, col, pattern[row][col])
+    
+    def display_letter(self, letter):
+        """Display letters A-Z"""
+        patterns = {
+            'A': [
+                [0, 1, 0],
+                [1, 0, 1],
+                [1, 1, 1]
+            ],
+            'B': [
+                [1, 1, 0],
+                [1, 1, 0],
+                [1, 1, 1]
+            ],
+            'C': [
+                [1, 1, 1],
+                [1, 0, 0],
+                [1, 1, 1]
+            ],
+            'H': [
+                [1, 0, 1],
+                [1, 1, 1],
+                [1, 0, 1]
+            ],
+            'I': [
+                [1, 1, 1],
+                [0, 1, 0],
+                [1, 1, 1]
+            ],
+            'O': [
+                [1, 1, 1],
+                [1, 0, 1],
+                [1, 1, 1]
+            ],
+            'X': [
+                [1, 0, 1],
+                [0, 1, 0],
+                [1, 0, 1]
+            ],
+            'HEART': [
+                [1, 0, 1],
+                [1, 1, 1],
+                [0, 1, 0]
+            ],
+            'SMILE': [
+                [1, 0, 1],
+                [0, 0, 0],
+                [1, 1, 1]
+            ],
+            'ARROW': [
+                [0, 1, 0],
+                [1, 1, 1],
+                [0, 1, 0]
+            ]
+        }
+        
+        if letter.upper() in patterns:
+            self.display_pattern(patterns[letter.upper()])
+    
+    def blink_all(self, duration=0.5, times=3):
+        """Blink all LEDs"""
+        for _ in range(times):
+            # Turn all on
+            for row in range(3):
+                for col in range(3):
+                    self.set_pixel(row, col, True)
+            time.sleep(duration)
+            
+            # Turn all off
+            self.clear_display()
+            time.sleep(duration)
+    
+    def wave_animation(self, delay=0.3):
+        """Create a wave effect"""
+        patterns = [
+            [[1, 0, 0], [0, 0, 0], [0, 0, 0]],
+            [[0, 1, 0], [0, 0, 0], [0, 0, 0]],
+            [[0, 0, 1], [0, 0, 0], [0, 0, 0]],
+            [[0, 0, 0], [0, 0, 1], [0, 0, 0]],
+            [[0, 0, 0], [0, 0, 0], [0, 0, 1]],
+            [[0, 0, 0], [0, 0, 0], [0, 1, 0]],
+            [[0, 0, 0], [0, 0, 0], [1, 0, 0]],
+            [[0, 0, 0], [1, 0, 0], [0, 0, 0]]
+        ]
+        
+        for pattern in patterns:
+            if not self.running:
+                break
+            self.display_pattern(pattern)
+            time.sleep(delay)
+    
+    def start_animation(self, animation_type="wave"):
+        """Start continuous animation"""
+        self.running = True
+        
+        def animate():
+            while self.running:
+                if animation_type == "wave":
+                    self.wave_animation()
+                elif animation_type == "blink":
+                    self.blink_all()
+                time.sleep(0.1)
+        
+        self.animation_thread = threading.Thread(target=animate)
+        self.animation_thread.daemon = True
+        self.animation_thread.start()
+    
+    def stop_animation(self):
+        """Stop animation"""
+        self.running = False
+        if self.animation_thread:
+            self.animation_thread.join()
+    
+    def cleanup(self):
+        """Clean up GPIO"""
+        self.stop_animation()
+        self.clear_display()
+        GPIO.cleanup()
+
+# Example usage
+if __name__ == "__main__":
+    matrix = LEDMatrix()
+    
+    try:
+        print("LED Matrix Demo Starting...")
+        
+        # Display letters
+        letters = ['H', 'I', 'HEART', 'SMILE']
+        for letter in letters:
+            print(f"Displaying: {letter}")
+            matrix.display_letter(letter)
+            time.sleep(2)
+        
+        # Blink animation
+        print("Blinking...")
+        matrix.blink_all(times=5)
+        
+        # Wave animation
+        print("Starting wave animation (press Ctrl+C to stop)")
+        matrix.start_animation("wave")
+        
+        # Keep running until interrupted
+        while True:
+            time.sleep(1)
+            
+    except KeyboardInterrupt:
+        print("\nStopping...")
+    finally:
+        matrix.cleanup()
+        print("Cleanup complete!")
+</code></pre>
+        </div>
+        
+        <div class="note">
+            <strong>🚀 Getting Started:</strong>
+            <ol>
+                <li>Install RPi.GPIO: <code>pip install RPi.GPIO</code></li>
+                <li>Wire your circuit according to the diagram above</li>
+                <li>Save the Python code as <code>led_matrix.py</code></li>
+                <li>Run with: <code>sudo python3 led_matrix.py</code></li>
+            </ol>
+        </div>
+        
+        <div class="note">
+            <strong>🔧 Customization Ideas:</strong>
+            <ul>
+                <li>Add more letter patterns to spell out words</li>
+                <li>Create scrolling text effects</li>
+                <li>Build simple games like Tic-Tac-Toe</li>
+                <li>Add brightness control with PWM</li>
+                <li>Use different colored LEDs for each position</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
